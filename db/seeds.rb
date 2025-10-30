@@ -7,3 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+i = 1
+10.times do
+  Product.create(
+    name: Faker::Name.unique.name
+  )
+  i = i +1
+end
+
+# product = Product.create(
+#   name: "car",
+#   price = 180000,
+#   image_url: ""
+#   description: "BMW X1"
+# )
