@@ -9,10 +9,12 @@
 #   end
 
 require 'faker'
+
 i = 1
 10.times do
   Product.create(
-    name: Faker::Name.unique.name
+    name: Faker::Name.unique.name,
+    price: rand(10)
   )
   i = i +1
 end
