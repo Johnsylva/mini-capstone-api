@@ -1,4 +1,9 @@
 class Product < ApplicationRecord
+  validates :name, presence: true
+  validates :price, numericality: {greater_than: 0}
+  validates :inventory, presence: true
+  validate :is_price_and_description
+
   def is_discounted
     if price && price <= 10
       true
@@ -20,6 +25,27 @@ class Product < ApplicationRecord
 
   def friendly_created_at
     created_at.strftime("%b %e, %l:%M %p")
+  end
+
+  private
+
+  # def is_price_and_description
+  #   if price.blank? && description.blank?
+  #     errors.add(:base, "price and description should be present")
+  #   #errors.add(:is_discounted, "discount should be present")
+  #   #errors.add(:total, "total should be present")
+  #   end
+  # end
+
+
+  def is_price_and_description
+    if price.blank?
+      errors.add(:price, "must be present")
+    end
+
+    if description.blank?
+      errors.add(:description, "must be present")
+    end
   end
 
 end

@@ -12,15 +12,22 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(
+    @product = Product.new(
       name: params[:name],
       description: params[:description],
       price: params[:price],
-      image_url: params[:image_url]
+      image_url: params[:image_url],
+      inventory: params[:inventory]
 
     )
 
-    render template: "products/show"
+    if @product.save
+      render :show, status: :created
+    else
+      render json: { errors: @product.errors }, status: :unprocessable_entity
+    end
+
+    #render template: "products/show"
   end
 
   def update
