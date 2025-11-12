@@ -10,11 +10,17 @@
 
 require 'faker'
 
+Product.destroy_all
+Supplier.destroy_all
+
+supplier = Supplier.create(name: "John", email: "john@gmail.com", phone_number: 817483173)
+
 i = 1
 10.times do
-  Product.create(
+  Product.create!(
     name: Faker::Name.unique.name,
-    price: rand(10)
+    price: i + 10,
+    supplier_id: supplier.id
   )
   i = i +1
 end
@@ -25,3 +31,7 @@ end
 #   image_url: ""
 #   description: "BMW X1"
 # )
+
+puts "-------"
+puts "created 1 supplier, 10 recipes"
+puts "-------"

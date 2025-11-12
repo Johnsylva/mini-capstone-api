@@ -17,4 +17,10 @@ Rails.application.routes.draw do
   post "/products" => "products#create"
   put "/products/:id" => "products#update"
   delete "/products/:id" => "products#destroy"
+
+  get "/suppliers" => "suppliers#index"
+  post "/suppliers" => "suppliers#create"
+
+
+
 end

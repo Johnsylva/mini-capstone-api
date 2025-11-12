@@ -17,7 +17,8 @@ class ProductsController < ApplicationController
       description: params[:description],
       price: params[:price],
       image_url: params[:image_url],
-      inventory: params[:inventory]
+      inventory: params[:inventory],
+      supplier_id: params[:supplier_id]
 
     )
 
@@ -37,10 +38,17 @@ class ProductsController < ApplicationController
       name: params[:name] || @product.name,
       description: params[:description] || @product.description,
       price: params[:price] || @product.price,
-      image_url: params[:image_url] || @product.image_url
+      image_url: params[:image_url] || @product.image_url,
+      inventory: params[:inventory] || @product.inventory,
+      supplier_id: params[:supplier_id] || @product.supplier_id
     )
 
-    render :show
+    if @product.valid?
+      render :show
+    else
+      render json: { errors: @product.errors }, status: :unprocessable_entity
+    end
+
   end
 
   def destroy
